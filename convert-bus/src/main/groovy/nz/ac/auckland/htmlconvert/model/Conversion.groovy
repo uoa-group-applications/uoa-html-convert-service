@@ -1,6 +1,11 @@
 package nz.ac.auckland.htmlconvert.model
 
 import org.jsoup.nodes.Document
+import org.jsoup.nodes.Element
+
+import java.awt.TrayIcon.MessageType
+
+import static java.awt.TrayIcon.MessageType.INFO
 
 /**
  *  Author: Marnix
@@ -26,6 +31,12 @@ class Conversion {
     Document doc;
 
     /**
+     * Conversion map
+     */
+    ConversionMap conversions;
+
+
+    /**
      * Markdown that is being built
      */
     String markdown;
@@ -43,5 +54,10 @@ class Conversion {
     public Conversion(String html) {
         this.html = html;
         this.uuid = UUID.randomUUID();
+    }
+
+
+    public void log(Element el, String message, MessageType type = INFO) {
+        report << new ConversionMessage(from: el.html(), message: message, type: type)
     }
 }

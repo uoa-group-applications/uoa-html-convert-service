@@ -2,7 +2,12 @@ package nz.ac.auckland.htmlconvert.service
 
 import nz.ac.auckland.common.stereotypes.UniversityComponent
 import nz.ac.auckland.htmlconvert.model.Conversion
+import nz.ac.auckland.htmlconvert.model.ConversionCommand
+import nz.ac.auckland.htmlconvert.pattern.ConversionPattern
 import org.jsoup.Jsoup
+import org.jsoup.nodes.Element
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 import javax.inject.Inject
 
@@ -13,6 +18,21 @@ import javax.inject.Inject
  */
 @UniversityComponent
 class HtmlConversionService {
+
+    /**
+     * Logger
+     */
+    private static final Logger LOG = LoggerFactory.getLogger(HtmlConversionService);
+
+    /**
+     * Conversion operations detector
+     */
+    @Inject FindConversionOperations findOperations;
+
+    /**
+     * Able to output a tree
+     */
+    @Inject TreeOutputIterator outputIterator;
 
     /**
      * Convert HTML to markdown
@@ -30,6 +50,17 @@ class HtmlConversionService {
         // setup Jsoup document
         conversion.doc = Jsoup.parse(conversion.html);
 
+        // postfix recursion through tree to setup operations
+        List<ConversionCommand> operations = findOperations.getConversionCommands(conversion);
+
+        // perform the conversion (in the correct order)
+        operations.each { ConversionCommand operation -> 
+            String result = operation.pattern.convert(operation.element);
+            conversion.conversions.converted(operation.element, result);
+        }
+
+        // output the result
+        conversion.markdown = outputIterator.outputTree(conversion);
 
     }
 
