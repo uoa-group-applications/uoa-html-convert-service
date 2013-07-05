@@ -42,10 +42,6 @@ class Conversion {
      */
     String markdown;
 
-    /**
-     * List of conversion messages
-     */
-    List<ConversionMessage> report = [];
 
     /**
      * Initialize data-members properly
@@ -56,11 +52,6 @@ class Conversion {
         this.html = html;
         this.uuid = UUID.randomUUID();
         this.mapping = new ConversionMap();
-    }
-
-
-    public void log(Element el, String message, MessageType type = INFO) {
-        report << new ConversionMessage(from: el.html(), message: message, type: type)
     }
 
     /**

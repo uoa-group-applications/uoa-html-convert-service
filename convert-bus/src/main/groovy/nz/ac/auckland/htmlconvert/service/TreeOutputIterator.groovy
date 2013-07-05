@@ -34,7 +34,6 @@ class TreeOutputIterator {
 
         // iterate through root nodes and create output
         conversion.doc.select("body > *")?.each { Element domElement ->
-            LOG.info("domElement: " + domElement.toString());
             String result = conversion.mapping.conversionOf(domElement);
             if (result) {
                 builder.append(result);

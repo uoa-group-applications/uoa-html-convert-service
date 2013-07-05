@@ -41,8 +41,7 @@ class HtmlToMarkdownEvent implements EventHandler<HtmlToMarkdownRequest, HtmlToM
 
         return new HtmlToMarkdownResponse(
                 uuid: conversion.uuid,
-                markdown: conversion.markdown,
-                report: conversion.report
+                markdown: conversion.markdown
         );
     }
 

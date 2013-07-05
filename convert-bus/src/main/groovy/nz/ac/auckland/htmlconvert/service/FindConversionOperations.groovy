@@ -60,10 +60,10 @@ class FindConversionOperations {
 
                 operations << operation;
 
-                LOG.info("Going to process: ${domElement.tagName()}");
+                LOG.debug("Going to process: ${domElement.tagName()}");
             }
             else {
-                LOG.info("No pattern found for: ${domElement.tagName()} => ${domElement.html()}");
+                LOG.info("No pattern found for: ${domElement.tagName()}");
             }
         }
 

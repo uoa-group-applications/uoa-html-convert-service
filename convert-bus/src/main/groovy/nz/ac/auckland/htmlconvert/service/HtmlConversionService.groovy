@@ -47,6 +47,8 @@ class HtmlConversionService {
             return;
         }
 
+        LOG.info("UUID: ${conversion.uuid}, converting: ${conversion.html}");
+
         // setup Jsoup document
         conversion.doc = Jsoup.parse(conversion.html);
 
