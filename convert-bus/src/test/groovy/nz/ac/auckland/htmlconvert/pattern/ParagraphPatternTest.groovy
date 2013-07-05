@@ -1,6 +1,7 @@
 package nz.ac.auckland.htmlconvert.pattern
 
 import nz.ac.auckland.common.testrunner.GroupAppsSpringTestRunner
+import nz.ac.auckland.htmlconvert.MarkdownIntegrationTest
 import nz.ac.auckland.htmlconvert.model.Conversion
 import nz.ac.auckland.htmlconvert.service.HtmlConversionService
 import org.junit.Test
@@ -11,32 +12,19 @@ import javax.inject.Inject
 
 /**
  *  Author: Marnix
- *
  */
-@RunWith(GroupAppsSpringTestRunner)
-@ContextConfiguration("classpath:spring-markdown-test.xml")
-class ParagraphPatternTest {
-
-    /**
-     * Conversion stack
-     */
-    @Inject HtmlConversionService conversionService;
-
+class ParagraphPatternTest extends MarkdownIntegrationTest {
 
     @Test
     public void shouldConvertInternals() {
 
-        def html =
-                '<p>my <a href="http://google.com">Link</a> is awesome</p>' +
-                '<p>second <a href="http://google.com">Link</a> is awesome</p>';
+        assert html2markdown(
+                    '<p>my <a href="http://google.com">Link</a> is awesome</p>' +
+                    '<p>second <a href="http://google.com">Link</a> is awesome</p>'
+                ) ==
+                    "my [Link](http://google.com) is awesome\n\n" +
+                    "second [Link](http://google.com) is awesome\n\n";
 
-        def conv = new Conversion(html);
-
-        conversionService.process(conv);
-
-        assert conv.markdown ==
-                "my [Link](http://google.com) is awesome\n\n" +
-                "second [Link](http://google.com) is awesome\n\n";
     }
 
 }
