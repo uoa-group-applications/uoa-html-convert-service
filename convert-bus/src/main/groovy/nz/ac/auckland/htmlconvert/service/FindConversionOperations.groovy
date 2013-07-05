@@ -4,7 +4,7 @@ import groovy.transform.CompileStatic
 import nz.ac.auckland.common.stereotypes.UniversityComponent
 import nz.ac.auckland.htmlconvert.model.Conversion
 import nz.ac.auckland.htmlconvert.model.ConversionCommand
-import nz.ac.auckland.htmlconvert.pattern.ConversionPattern
+import nz.ac.auckland.htmlconvert.core.ConversionPattern
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.slf4j.Logger
@@ -66,6 +66,8 @@ class FindConversionOperations {
                 LOG.info("No pattern found for: ${domElement.tagName()} => ${domElement.html()}");
             }
         }
+
+        return operations;
     }
 
     /**
@@ -82,8 +84,13 @@ class FindConversionOperations {
         postfixNode = { Element element ->
 
             // first dig to the leaf
-            element.childNodes()?.each { Node child ->
-                postfixNode.call(child as Element)
+            element.childNodes()?.each { org.jsoup.nodes.Node child ->
+
+                // no textnode recursion
+                if (child instanceof Element) {
+                    postfixNode.call(child as Element)
+                }
+
             }
 
             // execute when done calling children
@@ -91,7 +98,7 @@ class FindConversionOperations {
         }
 
         // set off the recursion
-        doc.childNodes()?.each { Node rootTag ->
+        doc.select("body > *")?.each { org.jsoup.nodes.Node rootTag ->
             postfixNode.call(rootTag as Element);
         }
     }

@@ -7,19 +7,16 @@
     <artifactId>uoa-war-parent</artifactId>
     <version>1.8</version>
   </parent>
-  <groupId>nz.ac.auckland.findathesis</groupId>
-  <artifactId>findathesis-war</artifactId>
+  <groupId>nz.ac.auckland.htmlconvert</groupId>
+  <artifactId>convert-war</artifactId>
   <packaging>bathe-war</packaging>
-  <name>findathesis-war</name>
+  <name>convert-war</name>
   <version>1.1-SNAPSHOT</version>
 
   <description>
-    This is the final assembly artifact for Find A Thesis.
+    This is the final assembly artifact for HTML->Markdown conversion.
   </description>
 
-  <properties>
-    <default.repo>UoA.ITSS.GrpApps/StaffDirectory/findathesis</default.repo>
-  </properties>
 
   <dependencies>
     <dependency>
@@ -33,15 +30,6 @@
         </exclusion>
       </exclusions>
     </dependency>
-
-    <!-- allows the use of mock data in final war until no longer necessary -->
-    <!--
-    <dependency>
-      <groupId>nz.ac.auckland.findathesis</groupId>
-      <artifactId>findathesis-user-test</artifactId>
-      <version>[1,2)</version>
-    </dependency>
-    -->
 
     <dependency>
       <groupId>nz.ac.auckland.common</groupId>

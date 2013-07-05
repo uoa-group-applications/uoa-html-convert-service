@@ -2,20 +2,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>nz.ac.auckland.pcf</groupId>
+    <groupId>nz.ac.auckland.htmlconvert</groupId>
     <artifactId>reactor</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>Programmes and Courses finder Reactor</name>
+    <name>HTML to Markdown converter</name>
     <description>Reactor build that glues all the modules together</description>
 
     <!-- build these modules -->
     <modules>
-		<module>pcf-domain</module>
-		<module>pcf-search</module>
-		<module>pcf-rest</module>
-        <module>pcf-core</module>
+		<module>convert-bus</module>
+        <module>convert-war</module>
     </modules>
 
 </project>

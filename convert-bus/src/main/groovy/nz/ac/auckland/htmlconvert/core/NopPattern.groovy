@@ -1,8 +1,9 @@
-package nz.ac.auckland.htmlconvert.pattern
+package nz.ac.auckland.htmlconvert.core
 
 import nz.ac.auckland.common.stereotypes.UniversityComponent
+import nz.ac.auckland.htmlconvert.core.ConversionPattern
+import nz.ac.auckland.htmlconvert.model.Conversion
 import org.jsoup.nodes.Element
-import sun.reflect.generics.reflectiveObjects.NotImplementedException
 
 /**
  *  Author: Marnix
@@ -21,7 +22,7 @@ class NopPattern implements ConversionPattern {
     }
 
     @Override
-    public String convert(Element el) {
+    public String convert(Element el, Conversion conversion) {
         throw new UnsupportedOperationException("Convert doesn't work for NOP class");
     }
 }

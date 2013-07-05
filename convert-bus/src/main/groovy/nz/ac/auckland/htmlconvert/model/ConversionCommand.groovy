@@ -1,6 +1,6 @@
 package nz.ac.auckland.htmlconvert.model
 
-import nz.ac.auckland.htmlconvert.pattern.ConversionPattern
+import nz.ac.auckland.htmlconvert.core.ConversionPattern
 import org.jsoup.nodes.Element
 
 /**
