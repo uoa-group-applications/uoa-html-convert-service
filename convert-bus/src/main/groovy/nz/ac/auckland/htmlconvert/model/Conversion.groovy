@@ -69,7 +69,7 @@ class Conversion {
             if (child instanceof TextNode) {
                 strBuilder.append(child.text());
             }
-            else {
+            else if (child instanceof Element) {
                 String childConversion = this.mapping.conversionOf(child as Element);
                 if (childConversion) {
                     strBuilder.append(childConversion);

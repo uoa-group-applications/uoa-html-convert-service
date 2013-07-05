@@ -1,0 +1,26 @@
+<h1>clipboard</h1>
+<div class="module_description"><!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+
+	<!-- contributed by Dietrich Ayala [dietrich@mozilla.com]  -->
+
+	<p>The <code>clipboard</code> module allows callers to interact with the system clipboard,
+		setting and retrieving its contents.</p>
+	<p>You can optionally specify the type of the data to set and retrieve.
+		The following types are supported:</p>
+	<ul>
+		<li><code>text</code> (plain text)</li>
+		<li><code>html</code> (a string of HTML)</li>
+		<li><code>image</code> (a base-64 encoded png)</li>
+	</ul>
+	<p>If no data type is provided, then the module will detect it for you.</p>
+	<p>Currently <code>image</code>'s type doesn't support transparency on Windows.</p>
+	<h2 id="Examples">Examples</h2>
+	<p>Set and get the contents of the clipboard.</p>
+	<div><div id="highlighter_470966" class="syntaxhighlighter  js" style="width: auto;"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js keyword">var</code> <code class="js plain">clipboard = require(</code><code class="js string">"sdk/clipboard"</code><code class="js plain">);</code></div><div class="line number2 index1 alt1"><code class="js plain">clipboard.set(</code><code class="js string">"Lorem ipsum dolor sit amet"</code><code class="js plain">);</code></div><div class="line number3 index2 alt2"><code class="js keyword">var</code> <code class="js plain">contents = clipboard.get();</code></div></div></td></tr></tbody></table></div></div>
+	<p>Set the clipboard contents to some HTML.</p>
+	<div><div id="highlighter_943873" class="syntaxhighlighter  js" style="width: auto;"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js keyword">var</code> <code class="js plain">clipboard = require(</code><code class="js string">"sdk/clipboard"</code><code class="js plain">);</code></div><div class="line number2 index1 alt1"><code class="js plain">clipboard.set(</code><code class="js string">"&lt;blink&gt;Lorem ipsum dolor sit amet&lt;/blink&gt;"</code><code class="js plain">, </code><code class="js string">"html"</code><code class="js plain">);</code></div></div></td></tr></tbody></table></div></div>
+	<p>If the clipboard contains HTML content, open it in a new tab.</p>
+	<div><div id="highlighter_100438" class="syntaxhighlighter  js" style="width: auto;"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js keyword">var</code> <code class="js plain">clipboard = require(</code><code class="js string">"sdk/clipboard"</code><code class="js plain">);</code></div><div class="line number2 index1 alt1"><code class="js keyword">if</code> <code class="js plain">(clipboard.currentFlavors.indexOf(</code><code class="js string">"html"</code><code class="js plain">) != -1)</code></div><div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">require(</code><code class="js string">"sdk/tabs"</code><code class="js plain">).open(</code><code class="js string">"data:text/html;charset=utf-8,"</code> <code class="js plain">+ clipboard.get(</code><code class="js string">"html"</code><code class="js plain">));</code></div></div></td></tr></tbody></table></div></div>
+	<p>Set the clipboard contents to an image</p></div>
