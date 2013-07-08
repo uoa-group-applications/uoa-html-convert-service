@@ -36,10 +36,16 @@ class UnorderedListPattern implements ConversionPattern {
             // get the mapping of the list item (should always have been converted).
             String listItemContent
 
-	          if (node instanceof Element)
-	            listItemContent = conversion.mapping.conversionOf(node as Element)
-	          else
-	            listItemContent = node.toString()
+            if (node instanceof Element) {
+                listItemContent = conversion.mapping.conversionOf(node as Element)
+            }
+            else {
+                listItemContent = node.toString()?.trim();
+            }
+
+            if (listItemContent.empty) {
+                return;
+            }
 
             // make them indent nicely
             listItemContent = listItemContent?.replace("\n", "\n\t");

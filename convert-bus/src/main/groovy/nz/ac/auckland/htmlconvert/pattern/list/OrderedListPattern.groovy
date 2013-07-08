@@ -36,7 +36,19 @@ class OrderedListPattern implements ConversionPattern {
         element.childNodes()?.each { org.jsoup.nodes.Node node ->
 
             // get the mapping of the list item (should always have been converted).
-            String listItemContent = conversion.mapping.conversionOf(node as Element);
+            String listItemContent = null;
+
+            if (node instanceof Element) {
+                listItemContent = conversion.mapping.conversionOf(node as Element)
+            }
+            else {
+                listItemContent = node.toString()?.trim();
+            }
+
+            // empty line? skip it.
+            if (listItemContent.empty) {
+                return;
+            }
 
             // make them indent nicely
             listItemContent = listItemContent?.replace("\n", "\n\t");

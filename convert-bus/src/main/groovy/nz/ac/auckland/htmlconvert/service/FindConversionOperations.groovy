@@ -7,6 +7,8 @@ import nz.ac.auckland.htmlconvert.model.ConversionCommand
 import nz.ac.auckland.htmlconvert.core.ConversionPattern
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
+import org.jsoup.parser.Tag
+import org.jsoup.select.Elements
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -71,6 +73,28 @@ class FindConversionOperations {
     }
 
     /**
+     * Determine whether the document has a child tag, and if not, if it still has text
+     *
+     * @param document is the document to inspect
+     * @return true if no tag, but text was found
+     */
+    protected boolean hasNoTagsJustText(Document document) {
+        return document.select("body > *").size() == 0 && !document.select("body")?.text()?.trim().empty;
+    }
+
+    /**
+     * Move the body text into a paragraph tag for conversion
+     * @param document is the document to change the body node of
+     */
+    protected void wrapBodyTextInParagraph(Document document) {
+        Element pTag = new Element(Tag.valueOf("p"), "");
+        Elements bodyTagContents = document.select("body");
+
+        pTag.text(bodyTagContents.text());
+        bodyTagContents.html(pTag.toString());
+    }
+
+    /**
      * Recursively step through the tree in a postfix fashion and execute the closure.
      *
      * @param doc is the document tree to iterate through
@@ -97,9 +121,14 @@ class FindConversionOperations {
             operation.call(element);
         }
 
+        if (hasNoTagsJustText(doc)) {
+            wrapBodyTextInParagraph(doc);
+        }
+
         // set off the recursion
         doc.select("body > *")?.each { org.jsoup.nodes.Node rootTag ->
             postfixNode.call(rootTag as Element);
         }
     }
+
 }
