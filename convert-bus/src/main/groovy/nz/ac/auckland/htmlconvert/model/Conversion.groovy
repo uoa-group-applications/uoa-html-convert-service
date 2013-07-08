@@ -49,9 +49,13 @@ class Conversion {
      * @param html is the HTML to convert
      */
     public Conversion(String html) {
-        this.html = html;
+        this.html = this.wrapInBaseDiv(html);
         this.uuid = UUID.randomUUID();
         this.mapping = new ConversionMap();
+    }
+
+    protected String wrapInBaseDiv(String html) {
+        return "<div>${html}</div>";
     }
 
     /**
@@ -67,7 +71,10 @@ class Conversion {
         element.childNodes()?.each { org.jsoup.nodes.Node child ->
 
             if (child instanceof TextNode) {
-                strBuilder.append(child.text());
+                String childText = child.text();
+                if (!onlyWhitespace(childText)) {
+                    strBuilder.append(childText);
+                }
             }
             else if (child instanceof Element) {
                 String childConversion = this.mapping.conversionOf(child as Element);
@@ -81,5 +88,12 @@ class Conversion {
         }
 
         return strBuilder.toString();
+    }
+
+    /**
+     * @return true if this only contains whitespaces
+     */
+    protected boolean onlyWhitespace(String string) {
+        return string.trim().length() == 0;
     }
 }

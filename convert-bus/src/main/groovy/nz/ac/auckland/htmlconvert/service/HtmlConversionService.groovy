@@ -64,5 +64,5 @@ class HtmlConversionService {
         // output the result
         conversion.markdown = outputIterator.outputTree(conversion);
     }
-    
+
 }
