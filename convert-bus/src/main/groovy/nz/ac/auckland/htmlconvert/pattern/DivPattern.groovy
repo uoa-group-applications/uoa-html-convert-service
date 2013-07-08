@@ -19,6 +19,6 @@ class DivPattern implements ConversionPattern {
 
 	@Override
 	String convert(Element element, Conversion conversion) {
-		return conversion.interpolate(element).trim()
+		return conversion.interpolate(element)
 	}
 }

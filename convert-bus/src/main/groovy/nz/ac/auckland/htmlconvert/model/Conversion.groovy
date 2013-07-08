@@ -71,10 +71,7 @@ class Conversion {
         element.childNodes()?.each { org.jsoup.nodes.Node child ->
 
             if (child instanceof TextNode) {
-                String childText = child.text();
-                if (!onlyWhitespace(childText)) {
-                    strBuilder.append(childText);
-                }
+                strBuilder.append(child.text());
             }
             else if (child instanceof Element) {
                 String childConversion = this.mapping.conversionOf(child as Element);
@@ -88,12 +85,5 @@ class Conversion {
         }
 
         return strBuilder.toString();
-    }
-
-    /**
-     * @return true if this only contains whitespaces
-     */
-    protected boolean onlyWhitespace(String string) {
-        return string.trim().length() == 0;
     }
 }
